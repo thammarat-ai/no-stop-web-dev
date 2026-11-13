@@ -6,7 +6,7 @@ One website a day, every day. A public log of small builds — each one designed
 
 | Day | Site | Skills | Source |
 |---|---|---|---|
-| 01 | Personal landing page | Semantic HTML, responsive CSS, custom properties | [day-01-landing](day-01-landing/) |
+| 01 | Personal landing page | Swiss editorial layout, serif display type, hairline rules | [day-01-landing](day-01-landing/) |
 
 ## Docs
 

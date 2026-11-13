@@ -3,417 +3,585 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Thammarat — Web Developer</title>
-<meta name="description" content="Personal site of Thammarat. One website a day, every day." />
+<title>Thammarat — One Site a Day</title>
+<meta name="description" content="Thammarat builds one website a day. An index of the work." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --line: #23232f;
-    --text: #f4f4f7;
-    --muted: #9a9aab;
-    --accent: #7cf5c4;
-    --accent-2: #7aa2ff;
-    --radius: 14px;
+    --paper: #f2ede4;
+    --ink: #16130f;
+    --ink-soft: #5c554b;
+    --red: #bf3a26;
+    --rule: rgba(22, 19, 15, 0.18);
+
+    --display: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --text: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+    --pad: clamp(18px, 4vw, 44px);
+    --max: 1240px;
   }
 
   * { box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
+  html { -webkit-text-size-adjust: 100%; }
 
   body {
     margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    line-height: 1.65;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--text);
+    font-size: 16px;
+    line-height: 1.55;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* soft glow behind the hero */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: -20% 30% 60% -20%;
-    background: radial-gradient(50% 50% at 50% 50%, rgba(124, 245, 196, .14), transparent 70%),
-                radial-gradient(40% 40% at 80% 20%, rgba(122, 162, 255, .12), transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+  ::selection { background: var(--red); color: var(--paper); }
+
+  a { color: inherit; }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
   }
 
-  .wrap {
-    position: relative;
-    z-index: 1;
-    max-width: 860px;
+  /* ---------- the page frame: a ruled sheet ---------- */
+  .sheet {
+    max-width: var(--max);
     margin: 0 auto;
-    padding: 0 24px;
-  }
-
-  /* ---------- nav ---------- */
-  header {
-    position: sticky;
-    top: 0;
-    backdrop-filter: blur(12px);
-    background: rgba(10, 10, 15, .72);
-    border-bottom: 1px solid var(--line);
-    z-index: 10;
-  }
-
-  nav {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 14px 24px;
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    min-height: 100vh;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    flex-direction: column;
   }
 
-  .logo {
-    font-weight: 700;
-    letter-spacing: -.02em;
-    text-decoration: none;
-    color: var(--text);
+  /* ---------- masthead ---------- */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 12px 24px;
+    padding: 18px var(--pad);
+    border-bottom: 1px solid var(--ink);
   }
 
-  .logo span { color: var(--accent); }
-
-  nav ul {
-    display: flex;
-    gap: 20px;
-    list-style: none;
+  .brand {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
     margin: 0;
-    padding: 0;
+    font-weight: 500;
   }
 
-  nav a {
-    color: var(--muted);
+  .brand .star {
+    color: var(--red);
+    font-size: 15px;
+    vertical-align: -1px;
+    padding: 0 2px;
+  }
+
+  .masthead nav {
+    display: flex;
+    gap: 22px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .masthead nav a {
     text-decoration: none;
-    font-size: 14px;
-    transition: color .18s ease;
+    color: var(--ink-soft);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
   }
 
-  nav a:hover { color: var(--text); }
+  .masthead nav a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--red);
+  }
 
   /* ---------- hero ---------- */
-  .hero { padding: 96px 0 56px; }
-
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 6px 14px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--surface);
-    font-size: 13px;
-    color: var(--muted);
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    border-bottom: 1px solid var(--ink);
   }
 
-  .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 4px rgba(124, 245, 196, .15);
+  .hero-main {
+    padding: var(--pad);
+    border-right: 1px solid var(--rule);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 clamp(28px, 6vw, 64px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: "";
+    width: 28px;
+    height: 1px;
+    background: var(--red);
   }
 
   h1 {
-    font-size: clamp(2.4rem, 7vw, 4rem);
-    line-height: 1.05;
-    letter-spacing: -.035em;
-    margin: 22px 0 0;
-    font-weight: 800;
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(3.2rem, 11vw, 7.6rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
   }
 
   h1 em {
-    font-style: normal;
-    background: linear-gradient(100deg, var(--accent), var(--accent-2));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+    font-style: italic;
+    color: var(--red);
   }
 
-  .lead {
-    font-size: clamp(1rem, 2.4vw, 1.15rem);
-    color: var(--muted);
-    max-width: 54ch;
-    margin: 20px 0 0;
+  .standfirst {
+    max-width: 34ch;
+    margin: clamp(28px, 5vw, 48px) 0 0;
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    line-height: 1.5;
+    color: var(--ink-soft);
   }
 
-  .cta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 34px;
-  }
-
-  .btn {
-    display: inline-block;
-    padding: 12px 22px;
-    border-radius: 10px;
-    font-size: 15px;
+  .standfirst strong {
+    color: var(--ink);
     font-weight: 600;
-    text-decoration: none;
-    border: 1px solid transparent;
-    transition: transform .15s ease, background .18s ease, border-color .18s ease;
   }
 
-  .btn:active { transform: translateY(1px); }
-
-  .btn-primary {
-    background: var(--accent);
-    color: #06231a;
+  /* ---------- hero facts column ---------- */
+  .facts {
+    padding: var(--pad) calc(var(--pad) * 0.7);
+    margin: 0;
+    display: grid;
+    align-content: start;
+    gap: 0;
   }
 
-  .btn-primary:hover { background: #93ffd4; }
-
-  .btn-ghost {
-    border-color: var(--line);
-    color: var(--text);
-    background: var(--surface);
+  .facts div {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
   }
 
-  .btn-ghost:hover { border-color: #3a3a4c; }
+  .facts div:first-child { padding-top: 0; }
+  .facts div:last-child { border-bottom: 0; }
 
-  /* ---------- sections ---------- */
-  section { padding: 56px 0; }
-
-  .kicker {
-    font-size: 12px;
-    letter-spacing: .16em;
+  .facts dt {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 18px;
-    font-weight: 700;
+    color: var(--ink-soft);
+    margin: 0 0 5px;
   }
 
-  h2 {
-    font-size: 1.5rem;
-    letter-spacing: -.02em;
-    margin: 0 0 22px;
+  .facts dd {
+    margin: 0;
+    font-size: 15px;
+    font-variant-numeric: tabular-nums;
   }
 
-  h2 + p { margin-top: -8px; }
-
-  p { color: var(--muted); margin: 0 0 14px; }
-
-  p strong { color: var(--text); font-weight: 600; }
-
-  .skills {
+  /* ---------- generic section head ---------- */
+  .section-head {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px var(--pad);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: rgba(22, 19, 15, 0.03);
+  }
+
+  /* ---------- index of builds ---------- */
+  .index {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .index li { border-bottom: 1px solid var(--rule); }
+
+  .index a {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr) auto 24px;
+    align-items: baseline;
+    gap: 16px;
+    padding: 20px var(--pad);
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .index a:hover { background: rgba(191, 58, 38, 0.06); }
+
+  .index a:hover .row-title { color: var(--red); }
+  .index a:hover .arrow { transform: translate(2px, -2px); }
+
+  .row-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .row-title {
+    font-family: var(--display);
+    font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+    line-height: 1.15;
+    transition: color 0.15s ease;
+  }
+
+  .row-note {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .arrow {
+    font-size: 15px;
+    color: var(--ink-soft);
+    transition: transform 0.15s ease;
+  }
+
+  .index li.pending a { cursor: default; }
+  .index li.pending a:hover { background: transparent; }
+  .index li.pending .row-title { color: var(--ink-soft); }
+  .index li.pending .arrow { visibility: hidden; }
+
+  /* ---------- about ---------- */
+  .about {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .about-label {
+    padding: var(--pad);
+    border-right: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .about-body { padding: var(--pad); }
+
+  .lede {
+    font-family: var(--display);
+    font-size: clamp(1.5rem, 3.4vw, 2.35rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    margin: 0 0 28px;
+    max-width: 26ch;
+  }
+
+  .lede i { color: var(--red); }
+
+  .about-body p.body-text {
+    max-width: 62ch;
+    margin: 0 0 16px;
+    color: var(--ink-soft);
+  }
+
+  .about-body p.body-text strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .colophon-list {
     list-style: none;
     padding: 0;
-    margin: 24px 0 0;
-  }
-
-  .skills li {
-    padding: 7px 14px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: var(--surface);
-    font-size: 13.5px;
-    color: #d6d6e0;
-  }
-
-  /* ---------- project cards ---------- */
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 16px;
-    margin-top: 8px;
-  }
-
-  .card {
+    margin: 28px 0 0;
     display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 22px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    text-decoration: none;
-    color: inherit;
-    transition: border-color .18s ease, transform .18s ease;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1px solid var(--rule);
   }
 
-  .card:hover {
-    border-color: #3a3a4c;
-    transform: translateY(-2px);
-  }
-
-  .card .tag {
-    font-size: 11px;
-    letter-spacing: .1em;
+  .colophon-list li {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: var(--accent);
-    font-weight: 700;
+    color: var(--ink-soft);
+    padding: 10px 16px 10px 0;
   }
 
-  .card h3 {
-    margin: 0;
-    font-size: 1.05rem;
-    letter-spacing: -.01em;
+  .colophon-list li + li {
+    padding-left: 16px;
+    border-left: 1px solid var(--rule);
   }
-
-  .card p { font-size: 14px; margin: 0; }
-
-  .card.muted { opacity: .55; }
-
-  .card.muted .tag { color: var(--muted); }
 
   /* ---------- contact ---------- */
   .contact {
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: var(--surface);
-    padding: 30px;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    border-bottom: 1px solid var(--ink);
   }
 
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 16px;
+  .contact-label {
+    padding: var(--pad);
+    border-right: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
   }
 
-  .links a {
-    color: var(--text);
+  .contact-body { padding: var(--pad); }
+
+  .mail {
+    display: inline-block;
+    font-family: var(--display);
+    font-size: clamp(1.4rem, 4.2vw, 2.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
     text-decoration: none;
-    font-size: 14.5px;
-    border-bottom: 1px solid transparent;
-    padding-bottom: 2px;
-    transition: border-color .18s ease;
+    border-bottom: 1px solid var(--red);
+    padding-bottom: 4px;
+    overflow-wrap: anywhere;
   }
 
-  .links a:hover { border-color: var(--accent); }
+  .mail:hover { color: var(--red); }
 
-  footer {
-    border-top: 1px solid var(--line);
-    padding: 28px 0 40px;
-    font-size: 13px;
-    color: var(--muted);
+  .contact-links {
     display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 26px;
+    margin-top: 26px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  /* ---------- small screens ---------- */
+  .contact-links a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 3px;
+  }
+
+  .contact-links a:hover {
+    color: var(--ink);
+    border-bottom-color: var(--ink);
+  }
+
+  /* ---------- colophon footer ---------- */
+  footer {
+    margin-top: auto;
+    padding: 22px var(--pad) 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  footer .set-in { max-width: 52ch; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px) {
+    .hero,
+    .about,
+    .contact { grid-template-columns: 1fr; }
+
+    .hero-main,
+    .about-label,
+    .contact-label { border-right: 0; border-bottom: 1px solid var(--rule); }
+
+    .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 20px; padding-top: 4px; }
+
+    .index a {
+      grid-template-columns: 40px minmax(0, 1fr) 20px;
+      gap: 12px;
+    }
+
+    .row-note {
+      grid-column: 2 / -1;
+      grid-row: 2;
+      margin-top: 4px;
+    }
+  }
+
   @media (max-width: 560px) {
-    nav ul { gap: 14px; }
-    nav ul li:last-child { display: none; }
-    .hero { padding: 64px 0 40px; }
-    .contact { padding: 22px; }
+    .masthead { grid-template-columns: 1fr; }
+    .masthead nav { gap: 16px; }
+    .facts { grid-template-columns: 1fr; }
+    .facts div { border-bottom: 1px solid var(--rule); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
     * { transition: none !important; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <nav>
-    <a class="logo" href="#top">thammarat<span>.dev</span></a>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header>
+<div class="sheet">
 
-<main>
-  <div class="wrap">
+  <!-- ================= MASTHEAD ================= -->
+  <header class="masthead">
+    <p class="brand">Thammarat<span class="star">✳</span>Web</p>
+    <nav>
+      <a href="#work">Index</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
 
     <!-- ================= HERO ================= -->
-    <section class="hero" id="top">
-      <span class="pill"><span class="dot"></span> Building one website a day</span>
-      <h1>Hi, I'm Thammarat.<br />I build <em>for the web</em>.</h1>
-      <p class="lead">
-        Front-end developer in progress. Every day I design and ship a small site,
-        from static pages to small apps — and you can try all of them right here.
-      </p>
-      <div class="cta">
-        <a class="btn btn-primary" href="#work">See my work</a>
-        <a class="btn btn-ghost" href="https://github.com/thammarat-ai" target="_blank" rel="noopener">GitHub</a>
+    <section class="hero">
+      <div class="hero-main">
+        <p class="eyebrow">Day 01 — One site a day</p>
+        <h1>One website<br />a day, <em>no</em><br />stopping.</h1>
+        <p class="standfirst">
+          A public record of small builds. Each one designed, written and shipped
+          in a single sitting — <strong>no framework, no build step, no excuses.</strong>
+        </p>
       </div>
+
+      <dl class="facts">
+        <div>
+          <dt>Started</dt>
+          <dd>13 Nov 2026</dd>
+        </div>
+        <div>
+          <dt>Streak</dt>
+          <dd>01 day</dd>
+        </div>
+        <div>
+          <dt>Stack</dt>
+          <dd>HTML, CSS</dd>
+        </div>
+        <div>
+          <dt>Build time</dt>
+          <dd>3 h 12 m</dd>
+        </div>
+        <div>
+          <dt>Status</dt>
+          <dd>In progress</dd>
+        </div>
+      </dl>
     </section>
+
+    <!-- ================= INDEX OF BUILDS ================= -->
+    <div class="section-head" id="work">
+      <span>Index of builds</span>
+      <span>01 — 003</span>
+    </div>
+
+    <ol class="index">
+      <li>
+        <a href="./index.html">
+          <span class="row-num">01</span>
+          <span class="row-title">Personal landing page</span>
+          <span class="row-note">HTML · CSS · 3 h</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li class="pending">
+        <a href="#work" aria-disabled="true">
+          <span class="row-num">02</span>
+          <span class="row-title">Link in bio, stripped bare</span>
+          <span class="row-note">Queued · tomorrow</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </li>
+      <li class="pending">
+        <a href="#work" aria-disabled="true">
+          <span class="row-num">03</span>
+          <span class="row-title">Pricing page for a fictional tool</span>
+          <span class="row-note">Queued · day after</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </li>
+    </ol>
 
     <!-- ================= ABOUT ================= -->
-    <section id="about">
-      <p class="kicker">About</p>
-      <h2>A daily habit, not a one-off project</h2>
-      <p>
-        I started a personal challenge: <strong>one website per day</strong>. The goal is
-        simple — get faster, get better, and document the journey in public. Each build
-        is small enough to finish in a few hours, so the focus stays on the details
-        that actually matter: layout, accessibility, performance and clean code.
-      </p>
-      <ul class="skills">
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-        <li>Responsive design</li>
-        <li>Git &amp; GitHub</li>
-        <li>Cloudflare Workers</li>
-        <li>Node.js</li>
-      </ul>
-    </section>
-
-    <!-- ================= WORK ================= -->
-    <section id="work">
-      <p class="kicker">Work</p>
-      <h2>Recent builds</h2>
-      <div class="cards">
-        <a class="card" href="./index.html">
-          <span class="tag">Day 1</span>
-          <h3>Personal landing page</h3>
-          <p>This page. Handwritten HTML and CSS, no framework, fully responsive.</p>
-        </a>
-        <div class="card muted">
-          <span class="tag">Day 2</span>
-          <h3>Coming soon</h3>
-          <p>A new site ships here tomorrow.</p>
-        </div>
-        <div class="card muted">
-          <span class="tag">Day 3</span>
-          <h3>Coming soon</h3>
-          <p>Follow along on GitHub to watch it grow.</p>
-        </div>
+    <div class="about">
+      <div class="about-label" id="about">About</div>
+      <div class="about-body">
+        <p class="lede">
+          I give myself one evening per site, <i>and the constraint does the design work.</i>
+        </p>
+        <p class="body-text">
+          I'm Thammarat, a front-end developer in progress. This repository is a
+          daily habit made visible: a new page every day, each one small enough to
+          finish before midnight and honest enough to publish as it is.
+        </p>
+        <p class="body-text">
+          There is no dashboard of fake testimonials here, no glassy cards. Just
+          <strong>type, rules, and whatever the page actually needs.</strong> If a
+          build is rough, it stays rough — the point is the streak, not the polish.
+        </p>
+        <ul class="colophon-list">
+          <li>HTML</li>
+          <li>CSS</li>
+          <li>JavaScript</li>
+          <li>Responsive</li>
+          <li>Git</li>
+          <li>Cloudflare</li>
+        </ul>
       </div>
-    </section>
+    </div>
 
     <!-- ================= CONTACT ================= -->
-    <section id="contact">
-      <p class="kicker">Contact</p>
-      <div class="contact">
-        <h2 style="margin-bottom:10px;">Let's build something</h2>
-        <p style="margin-bottom:0;">
-          Open to feedback, collaborations, and junior front-end opportunities.
-        </p>
-        <div class="links">
-          <a href="https://github.com/thammarat-ai" target="_blank" rel="noopener">GitHub</a>
-          <a href="mailto:thammarat.th@up.ac.th">thammarat.th@up.ac.th</a>
+    <div class="contact">
+      <div class="contact-label" id="contact">Contact</div>
+      <div class="contact-body">
+        <a class="mail" href="mailto:thammarat.th@up.ac.th">thammarat.th@up.ac.th</a>
+        <div class="contact-links">
+          <a href="https://github.com/thammarat-ai" target="_blank" rel="noopener">GitHub ↗</a>
+          <a href="https://github.com/thammarat-ai/no-stop-web-dev" target="_blank" rel="noopener">Source of this page ↗</a>
         </div>
       </div>
-    </section>
+    </div>
 
-  </div>
-</main>
+  </main>
 
-<footer class="wrap">
-  <span>&copy; <span id="year">2026</span> Thammarat</span>
-  <span>Day 1 of the one-website-a-day challenge</span>
-</footer>
+  <!-- ================= COLOPHON ================= -->
+  <footer>
+    <span class="set-in">
+      Set in Instrument Serif &amp; Archivo. Handwritten HTML and CSS — no framework,
+      no build step, one file.
+    </span>
+    <span>&copy; <span id="year">2026</span> Thammarat · Day 01</span>
+  </footer>
+
+</div>
 
 <script>
-  // Keep the copyright year current without a build step.
   document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 
