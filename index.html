@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thammarat — Index of Builds</title>
+<meta name="description" content="One website a day. An index of every build, ready to open." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --paper: #f2ede4;
+    --ink: #16130f;
+    --ink-soft: #5c554b;
+    --red: #bf3a26;
+    --rule: rgba(22, 19, 15, 0.18);
+
+    --display: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --text: "Archivo", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+
+    --pad: clamp(18px, 4vw, 44px);
+    --max: 1240px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--text);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--red); color: var(--paper); }
+
+  a { color: inherit; }
+
+  a:focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+
+  .sheet {
+    max-width: var(--max);
+    margin: 0 auto;
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ---------- masthead ---------- */
+  .masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 12px 24px;
+    padding: 18px var(--pad);
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .brand {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .brand .star { color: var(--red); font-size: 15px; vertical-align: -1px; padding: 0 2px; }
+
+  .masthead nav {
+    display: flex;
+    gap: 22px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .masthead nav a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+  }
+
+  .masthead nav a:hover { color: var(--ink); border-bottom-color: var(--red); }
+
+  /* ---------- intro ---------- */
+  .intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  .intro-main { padding: var(--pad); border-right: 1px solid var(--rule); }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 clamp(20px, 4vw, 40px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--red); }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: clamp(2.8rem, 9vw, 6.2rem);
+    line-height: 0.94;
+    letter-spacing: -0.02em;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  h1 em { font-style: italic; color: var(--red); }
+
+  .standfirst {
+    max-width: 46ch;
+    margin: clamp(20px, 4vw, 34px) 0 0;
+    color: var(--ink-soft);
+    font-size: clamp(0.98rem, 1.5vw, 1.1rem);
+  }
+
+  .standfirst strong { color: var(--ink); font-weight: 600; }
+
+  .tally {
+    margin: 0;
+    padding: var(--pad) calc(var(--pad) * 0.7);
+    display: grid;
+    align-content: start;
+  }
+
+  .tally div { padding: 14px 0; border-bottom: 1px solid var(--rule); }
+  .tally div:first-child { padding-top: 0; }
+  .tally div:last-child { border-bottom: 0; }
+
+  .tally dt {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 5px;
+  }
+
+  .tally dd {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 1.9rem;
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ---------- section head ---------- */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 12px var(--pad);
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    background: rgba(22, 19, 15, 0.03);
+  }
+
+  /* ---------- builds ---------- */
+  .builds {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .builds li { border-bottom: 1px solid var(--rule); }
+
+  .build {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) auto;
+    align-items: start;
+    gap: 8px 24px;
+    padding: 26px var(--pad);
+    text-decoration: none;
+    transition: background 0.15s ease;
+  }
+
+  .build-live:hover { background: rgba(191, 58, 38, 0.06); }
+  .build-live:hover .build-title { color: var(--red); }
+  .build-live:hover .build-open { transform: translateX(4px); }
+
+  .build-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    padding-top: 8px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .build-body { min-width: 0; }
+
+  .build-title {
+    font-family: var(--display);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    line-height: 1.15;
+    margin: 0 0 8px;
+    letter-spacing: -0.01em;
+    transition: color 0.15s ease;
+  }
+
+  .build-meta {
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+
+  .build-meta span:not(:last-child)::after {
+    content: "·";
+    margin-left: 14px;
+    color: var(--rule);
+  }
+
+  .build-side {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding-top: 6px;
+  }
+
+  .status {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border: 1px solid var(--red);
+    color: var(--red);
+    white-space: nowrap;
+  }
+
+  .status.queued {
+    border-color: var(--rule);
+    color: var(--ink-soft);
+  }
+
+  .build-open {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    transition: transform 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .build-queued { cursor: default; }
+  .build-queued .build-title { color: var(--ink-soft); }
+  .build-queued .build-open { visibility: hidden; }
+
+  /* ---------- footer ---------- */
+  footer {
+    margin-top: auto;
+    padding: 22px var(--pad) 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-soft);
+    line-height: 1.7;
+  }
+
+  footer .set-in { max-width: 52ch; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 860px) {
+    .intro { grid-template-columns: 1fr; }
+    .intro-main { border-right: 0; border-bottom: 1px solid var(--rule); }
+    .tally { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 20px; }
+    .build { grid-template-columns: 42px minmax(0, 1fr); padding: 22px var(--pad); }
+    .build-side { grid-column: 2; padding-top: 0; justify-content: flex-start; }
+  }
+
+  @media (max-width: 560px) {
+    .masthead { grid-template-columns: 1fr; }
+    .tally { grid-template-columns: 1fr; }
+    .tally div { border-bottom: 1px solid var(--rule); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <header class="masthead">
+    <a class="brand" href="./index.html">Thammarat<span class="star">✳</span>Web</a>
+    <nav>
+      <a href="#builds">Builds</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="intro">
+      <div class="intro-main">
+        <p class="eyebrow">Index — every build, open in one click</p>
+        <h1>One website<br />a day, <em>kept</em><br />on the record.</h1>
+        <p class="standfirst">
+          Each row below is a finished page you can open right now.
+          <strong>No mockups, no screenshots of work — the actual sites.</strong>
+        </p>
+      </div>
+      <dl class="tally">
+        <div>
+          <dt>Shipped</dt>
+          <dd>01</dd>
+        </div>
+        <div>
+          <dt>Queued</dt>
+          <dd>02</dd>
+        </div>
+        <div>
+          <dt>Since</dt>
+          <dd>13 Nov</dd>
+        </div>
+      </dl>
+    </section>
+
+    <div class="section-head" id="builds">
+      <span>Builds</span>
+      <span>001 — 003</span>
+    </div>
+
+    <ol class="builds">
+      <li>
+        <a class="build build-live" href="./day-01-landing/">
+          <span class="build-num">01</span>
+          <span class="build-body">
+            <h2 class="build-title">Personal landing page</h2>
+            <p class="build-meta">
+              <span>13 Nov 2026</span>
+              <span>HTML · CSS</span>
+              <span>3 h 12 m</span>
+            </p>
+          </span>
+          <span class="build-side">
+            <span class="status">Live</span>
+            <span class="build-open">Open ↗</span>
+          </span>
+        </a>
+      </li>
+
+      <li>
+        <div class="build build-queued">
+          <span class="build-num">02</span>
+          <span class="build-body">
+            <h2 class="build-title">Link in bio, stripped bare</h2>
+            <p class="build-meta">
+              <span>Queued</span>
+              <span>HTML · CSS</span>
+            </p>
+          </span>
+          <span class="build-side">
+            <span class="status queued">Queued</span>
+            <span class="build-open">Open ↗</span>
+          </span>
+        </div>
+      </li>
+
+      <li>
+        <div class="build build-queued">
+          <span class="build-num">03</span>
+          <span class="build-body">
+            <h2 class="build-title">Pricing page for a fictional tool</h2>
+            <p class="build-meta">
+              <span>Queued</span>
+              <span>HTML · CSS</span>
+            </p>
+          </span>
+          <span class="build-side">
+            <span class="status queued">Queued</span>
+            <span class="build-open">Open ↗</span>
+          </span>
+        </div>
+      </li>
+    </ol>
+
+  </main>
+
+  <footer id="contact">
+    <span class="set-in">
+      Set in Instrument Serif &amp; Archivo. Handwritten HTML and CSS — no framework,
+      no build step.
+    </span>
+    <span>
+      <a href="mailto:thammarat.th@up.ac.th" style="text-decoration:none;border-bottom:1px solid var(--rule);">thammarat.th@up.ac.th</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/thammarat-ai" style="text-decoration:none;border-bottom:1px solid var(--rule);">GitHub ↗</a>
+    </span>
+  </footer>
+
+</div>
+
+</body>
+</html>
